@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { fileURLToPath } from 'node:url';
 // Portability / convention guard for the skill suite.
 // Run: node scripts/check-portability.mjs   (exit 1 on any violation)
 //
@@ -42,7 +43,7 @@
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
-const SKILLS_DIR = new URL('../skills/', import.meta.url).pathname;
+const SKILLS_DIR = fileURLToPath(new URL('../skills/', import.meta.url));
 const violations = [];
 const warnings = []; // over WARN_AT but still under budget — visible, not fatal
 const sizes = []; // { rel, words, bytes } per .md file, for the word-count report
@@ -205,7 +206,7 @@ const PARSED_LITERALS = new Set([
 const isExemptTerm = (w) => /^[A-Z0-9-]+$/.test(w) || PARSED_LITERALS.has(w);
 
 function check(path) {
-  const rel = path.slice(SKILLS_DIR.length);
+  const rel = path.slice(SKILLS_DIR.length).replaceAll('\\', '/');
   const text = readFileSync(path, 'utf8');
   const isSkillMd = rel.endsWith('/SKILL.md');
 
