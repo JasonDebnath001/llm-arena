@@ -309,6 +309,9 @@
   .relative {
     position: relative;
   }
+  .static {
+    position: static;
+  }
   .isolate {
     isolation: isolate;
   }
@@ -519,6 +522,9 @@
   }
   .text-zinc-950 {
     color: var(--color-zinc-950);
+  }
+  .lowercase {
+    text-transform: lowercase;
   }
   .antialiased {
     -webkit-font-smoothing: antialiased;

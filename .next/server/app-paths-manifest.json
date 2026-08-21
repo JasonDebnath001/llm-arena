@@ -1,3 +1,4 @@
 {
+  "/api/protected/route": "app/api/protected/route.js",
   "/page": "app/page.js"
 }

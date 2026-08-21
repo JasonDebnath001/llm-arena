@@ -27,24 +27,35 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "check": "node scripts/check-portability.mjs",
     "test": "npm run check",
     "tokens": "node scripts/analyze-token-usage.mjs"
   },
   "dependencies": {
+    "@arcjet/next": "^1.10.0",
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "dotenv": "^17.4.2",
     "next": "^15.3.5",
+    "pg": "^8.23.0",
+    "posthog-js": "^1.418.5",
+    "posthog-node": "^5.49.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.6",
     "@tailwindcss/postcss": "^4.1.11",
-    "@types/node": "^20.17.14",
+    "@types/node": "^20.19.43",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "^15.3.5",
+    "prisma": "^7.9.1",
     "tailwindcss": "^4.1.11",
+    "tsx": "^4.23.12",
     "typescript": "^5.8.0"
   }
 }
