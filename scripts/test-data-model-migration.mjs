@@ -7,23 +7,28 @@ import { config } from "dotenv";
 import pg from "pg";
 
 const repositoryRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
-const environment = config({ path: join(repositoryRoot, ".env") }).parsed;
-const databaseUrl = environment?.DATABASE_URL;
+config({ path: join(repositoryRoot, ".env") });
+// eslint-disable-next-line no-restricted-properties -- Honor shell/CI values after loading local .env.
+const databaseUrl = process.env.DATABASE_URL;
 
 if (!databaseUrl) {
   throw new Error("DATABASE_URL is not configured in .env");
 }
 
-const migration = await readFile(
-  join(
-    repositoryRoot,
-    "prisma",
-    "migrations",
-    "20260822000000_comparison_data_model",
-    "migration.sql",
-  ),
-  "utf8",
-);
+const migrationPaths = [
+  "20260822000000_comparison_data_model",
+  "20260822010000_restrict_user_deletion",
+];
+const migration = (
+  await Promise.all(
+    migrationPaths.map((directory) =>
+      readFile(
+        join(repositoryRoot, "prisma", "migrations", directory, "migration.sql"),
+        "utf8",
+      ),
+    ),
+  )
+).join("\n");
 const schemaName = `data_model_test_${randomUUID().replaceAll("-", "")}`;
 const quotedSchemaName = `"${schemaName}"`;
 const client = new pg.Client({ connectionString: databaseUrl });
@@ -47,12 +52,16 @@ try {
 
   const { rows } = await client.query(
     `SELECT COUNT(*)::integer AS count
-     FROM pg_trigger
-     WHERE tgname IN (
+     FROM pg_trigger AS trigger
+     JOIN pg_class AS relation ON relation.oid = trigger.tgrelid
+     JOIN pg_namespace AS namespace ON namespace.oid = relation.relnamespace
+     WHERE namespace.nspname = $1
+       AND trigger.tgname IN (
        'VoteRevision_successfulAttempt_trigger',
        'VoteRevision_immutable_trigger'
      )
-       AND NOT tgisinternal`,
+       AND NOT trigger.tgisinternal`,
+    [schemaName],
   );
 
   if (rows[0]?.count !== 2) {
@@ -158,6 +167,13 @@ try {
       values: [ids.firstRevision],
     },
     "An immutable vote revision was updated",
+  );
+  await expectQueryFailure(
+    {
+      text: `DELETE FROM "User" WHERE "id" = $1`,
+      values: [ids.user],
+    },
+    "A user with uncleared owned comparisons was deleted",
   );
 
   await client.query(

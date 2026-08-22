@@ -74,7 +74,7 @@ model Comparison {
   claimExpiresAt   DateTime?
   revealedAt       DateTime?
   contentDeletedAt DateTime?
-  owner            User?             @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+  owner            User?             @relation(fields: [ownerId], references: [id], onDelete: Restrict)
   contestants      Contestant[]
   responseAttempts ResponseAttempt[]
   vote             Vote?

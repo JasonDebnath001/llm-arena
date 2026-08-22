@@ -79,8 +79,8 @@ code in `design.md`, `app/globals.css`, `app/design-system/`, `app/arena/`, and 
 
 ### 5. Blind comparison and voting loop · needs a decision · Beta
 
-Let anyone submit one prompt to as many as three models and watch their responses arrive independently. Require sign in only when the user votes, then reveal model identities.
-**Done when:** a developer can choose models, submit a prompt, see live response and per call latency, token, and `$0.0000` cost measurements, recover from one model failing, sign in to cast one winner vote, and see identities only after that vote. (basis: completed comparison votes are the primary success metric, and identity masking reduces label induced evaluation bias)
+Let anyone submit one prompt to as many as three models and watch their responses arrive independently. Require users to sign in only when they vote, then reveal model identities.
+**Done when:** a developer can choose models, submit a prompt, see live response and per-call latency, token, and zero-dollar cost measurements, recover from one model failing, require users to sign in only when they vote, and see identities only after that vote. (basis: completed comparison votes are the primary success metric, and identity masking reduces label-induced evaluation bias)
 
 - [ ] Design it (spec): `/architect blind comparison and voting loop`
 
