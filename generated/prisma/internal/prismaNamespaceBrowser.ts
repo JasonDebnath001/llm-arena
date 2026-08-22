@@ -52,7 +52,13 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Post: 'Post'
+  Model: 'Model',
+  ModelVersion: 'ModelVersion',
+  Comparison: 'Comparison',
+  Contestant: 'Contestant',
+  ResponseAttempt: 'ResponseAttempt',
+  Vote: 'Vote',
+  VoteRevision: 'VoteRevision'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -73,8 +79,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  email: 'email',
-  name: 'name',
+  clerkSubject: 'clerkSubject',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -82,16 +87,103 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const PostScalarFieldEnum = {
+export const ModelScalarFieldEnum = {
   id: 'id',
-  title: 'title',
-  published: 'published',
-  authorId: 'authorId',
+  name: 'name',
+  description: 'description',
+  availability: 'availability',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+export type ModelScalarFieldEnum = (typeof ModelScalarFieldEnum)[keyof typeof ModelScalarFieldEnum]
+
+
+export const ModelVersionScalarFieldEnum = {
+  id: 'id',
+  modelId: 'modelId',
+  providerModelId: 'providerModelId',
+  versionLabel: 'versionLabel',
+  capabilities: 'capabilities',
+  contextWindowTokens: 'contextWindowTokens',
+  effectiveFrom: 'effectiveFrom',
+  effectiveTo: 'effectiveTo',
+  createdAt: 'createdAt'
+} as const
+
+export type ModelVersionScalarFieldEnum = (typeof ModelVersionScalarFieldEnum)[keyof typeof ModelVersionScalarFieldEnum]
+
+
+export const ComparisonScalarFieldEnum = {
+  id: 'id',
+  promptCiphertext: 'promptCiphertext',
+  promptKeyVersion: 'promptKeyVersion',
+  ownerId: 'ownerId',
+  claimTokenHash: 'claimTokenHash',
+  claimExpiresAt: 'claimExpiresAt',
+  revealedAt: 'revealedAt',
+  contentDeletedAt: 'contentDeletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ComparisonScalarFieldEnum = (typeof ComparisonScalarFieldEnum)[keyof typeof ComparisonScalarFieldEnum]
+
+
+export const ContestantScalarFieldEnum = {
+  id: 'id',
+  comparisonId: 'comparisonId',
+  modelVersionId: 'modelVersionId',
+  displayPosition: 'displayPosition',
+  createdAt: 'createdAt'
+} as const
+
+export type ContestantScalarFieldEnum = (typeof ContestantScalarFieldEnum)[keyof typeof ContestantScalarFieldEnum]
+
+
+export const ResponseAttemptScalarFieldEnum = {
+  id: 'id',
+  contestantId: 'contestantId',
+  comparisonId: 'comparisonId',
+  attemptNumber: 'attemptNumber',
+  responseCiphertext: 'responseCiphertext',
+  responseKeyVersion: 'responseKeyVersion',
+  status: 'status',
+  errorCategory: 'errorCategory',
+  startedAt: 'startedAt',
+  firstTokenAt: 'firstTokenAt',
+  completedAt: 'completedAt',
+  inputTokens: 'inputTokens',
+  outputTokens: 'outputTokens',
+  costUsdTenThousandths: 'costUsdTenThousandths',
+  createdAt: 'createdAt'
+} as const
+
+export type ResponseAttemptScalarFieldEnum = (typeof ResponseAttemptScalarFieldEnum)[keyof typeof ResponseAttemptScalarFieldEnum]
+
+
+export const VoteScalarFieldEnum = {
+  id: 'id',
+  comparisonId: 'comparisonId',
+  userId: 'userId',
+  currentRevisionId: 'currentRevisionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VoteScalarFieldEnum = (typeof VoteScalarFieldEnum)[keyof typeof VoteScalarFieldEnum]
+
+
+export const VoteRevisionScalarFieldEnum = {
+  id: 'id',
+  voteId: 'voteId',
+  comparisonId: 'comparisonId',
+  selectedAttemptId: 'selectedAttemptId',
+  sequence: 'sequence',
+  createdAt: 'createdAt'
+} as const
+
+export type VoteRevisionScalarFieldEnum = (typeof VoteRevisionScalarFieldEnum)[keyof typeof VoteRevisionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -102,12 +194,28 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 export const NullsOrder = {

@@ -9,5 +9,11 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
-export type * from './models/Post'
+export type * from './models/Model'
+export type * from './models/ModelVersion'
+export type * from './models/Comparison'
+export type * from './models/Contestant'
+export type * from './models/ResponseAttempt'
+export type * from './models/Vote'
+export type * from './models/VoteRevision'
 export type * from './commonInputTypes'

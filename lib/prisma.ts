@@ -1,18 +1,15 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 
 import { PrismaClient } from "../generated/prisma/client";
-
-const connectionString = process.env.DATABASE_URL;
-
-if (!connectionString) {
-  throw new Error("DATABASE_URL is not configured");
-}
+import { serverEnvironment } from "../infrastructure/env";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-const adapter = new PrismaPg({ connectionString });
+const adapter = new PrismaPg({
+  connectionString: serverEnvironment.databaseUrl,
+});
 
 export const prisma =
   globalForPrisma.prisma ??
@@ -20,7 +17,7 @@ export const prisma =
     adapter,
   });
 
-if (process.env.NODE_ENV !== "production") {
+if (serverEnvironment.nodeEnvironment !== "production") {
   globalForPrisma.prisma = prisma;
 }
 

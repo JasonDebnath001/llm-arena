@@ -1,17 +1,19 @@
 import { PostHog } from "posthog-node";
 
+import { serverEnvironment } from "@/infrastructure/env";
+
 let posthogClient: PostHog | null = null;
 
 export function getPostHogClient(): PostHog | null {
-  const token = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
-  const host = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+  const token = serverEnvironment.postHogProjectToken;
+  const host = serverEnvironment.postHogHost;
 
   if (!token) {
-    if (process.env.NODE_ENV === "development") {
+    if (serverEnvironment.nodeEnvironment === "development") {
       console.error(
         "NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN variable required by PostHog is missing or un-configured, " +
           "this causes events to be silently missed. " +
-          "This error stops appearing once NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN is configured"
+          "This error stops appearing once NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN is configured",
       );
     }
     return null;

@@ -1,31 +1,24 @@
 import "dotenv/config";
 
+import { ModelAvailability } from "../generated/prisma/client";
 import { prisma } from "../lib/prisma";
 
 async function main() {
-  await prisma.user.upsert({
-    where: { email: "ada@example.com" },
-    update: { name: "Ada Lovelace" },
+  await prisma.model.upsert({
+    where: { id: "example-free-model" },
+    update: {},
     create: {
-      email: "ada@example.com",
-      name: "Ada Lovelace",
-      posts: {
-        create: [
-          { title: "Welcome to Prisma Postgres", published: true },
-          { title: "A draft for later" },
-        ],
-      },
-    },
-  });
-
-  await prisma.user.upsert({
-    where: { email: "grace@example.com" },
-    update: { name: "Grace Hopper" },
-    create: {
-      email: "grace@example.com",
-      name: "Grace Hopper",
-      posts: {
-        create: [{ title: "Databases and compilers", published: true }],
+      id: "example-free-model",
+      name: "Example free model",
+      description: "Replace this seed record with a supported provider model.",
+      availability: ModelAvailability.UNAVAILABLE,
+      versions: {
+        create: {
+          providerModelId: "example/free-model",
+          versionLabel: "seed",
+          capabilities: { textGeneration: true },
+          effectiveFrom: new Date("2026-08-22T00:00:00.000Z"),
+        },
       },
     },
   });
