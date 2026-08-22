@@ -1,0 +1,15 @@
+.next
+.agents
+generated
+node_modules
+pnpm-lock.yaml
+scripts
+skills
+tsconfig.tsbuildinfo
+CLAUDE.md
+README.md
+posthog-self-driving-report.md
+docs/**
+!docs/coding-standards.md
+!docs/scope/
+!docs/scope/scope.md

@@ -1,13 +1,9 @@
 import arcjet, { shield } from "@arcjet/next";
 
-const key = process.env.ARCJET_KEY;
-
-if (!key) {
-  throw new Error("ARCJET_KEY is not configured");
-}
+import { serverEnvironment } from "@/infrastructure/env";
 
 const aj = arcjet({
-  key,
+  key: serverEnvironment.arcjetKey,
   rules: [shield({ mode: "LIVE" })],
 });
 

@@ -3,7 +3,7 @@ import "dotenv/config";
 import { prisma } from "../lib/prisma";
 
 async function main() {
-  await prisma.user.findFirst({
+  await prisma.model.findFirst({
     select: { id: true },
   });
 

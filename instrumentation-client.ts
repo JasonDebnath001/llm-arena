@@ -1,13 +1,15 @@
 import posthog from "posthog-js";
 
-const token = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
+import { publicEnvironment } from "@/infrastructure/public-env";
+
+const token = publicEnvironment.postHogProjectToken;
 
 if (!token) {
-  if (process.env.NODE_ENV === "development") {
+  if (publicEnvironment.nodeEnvironment === "development") {
     console.error(
       "NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN variable required by PostHog is missing or un-configured, " +
         "this causes events to be silently missed. " +
-        "This error stops appearing once NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN is configured"
+        "This error stops appearing once NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN is configured",
     );
   }
 } else {
@@ -19,7 +21,7 @@ if (!token) {
     // Enables capturing unhandled exceptions via Error Tracking
     capture_exceptions: true,
     // Turn on debug in development mode
-    debug: process.env.NODE_ENV === "development",
+    debug: publicEnvironment.nodeEnvironment === "development",
   });
 }
 

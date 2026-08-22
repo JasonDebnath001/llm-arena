@@ -23,10 +23,7 @@ export async function GET(request: Request) {
 
   if (decision.isDenied()) {
     if (decision.reason.isRateLimit()) {
-      return NextResponse.json(
-        { error: "Too many requests" },
-        { status: 429 },
-      );
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
 
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });

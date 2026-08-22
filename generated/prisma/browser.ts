@@ -23,7 +23,37 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
- * Model Post
+ * Model Model
  * 
  */
-export type Post = Prisma.PostModel
+export type Model = Prisma.ModelModel
+/**
+ * Model ModelVersion
+ * 
+ */
+export type ModelVersion = Prisma.ModelVersionModel
+/**
+ * Model Comparison
+ * 
+ */
+export type Comparison = Prisma.ComparisonModel
+/**
+ * Model Contestant
+ * 
+ */
+export type Contestant = Prisma.ContestantModel
+/**
+ * Model ResponseAttempt
+ * 
+ */
+export type ResponseAttempt = Prisma.ResponseAttemptModel
+/**
+ * Model Vote
+ * 
+ */
+export type Vote = Prisma.VoteModel
+/**
+ * Model VoteRevision
+ * 
+ */
+export type VoteRevision = Prisma.VoteRevisionModel

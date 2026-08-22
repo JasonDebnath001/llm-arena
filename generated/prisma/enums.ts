@@ -9,7 +9,32 @@
 * 🟢 You can import this file directly.
 */
 
+export const ModelAvailability = {
+  AVAILABLE: 'AVAILABLE',
+  DEGRADED: 'DEGRADED',
+  UNAVAILABLE: 'UNAVAILABLE'
+} as const
+
+export type ModelAvailability = (typeof ModelAvailability)[keyof typeof ModelAvailability]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const ResponseAttemptStatus = {
+  PENDING: 'PENDING',
+  STREAMING: 'STREAMING',
+  SUCCEEDED: 'SUCCEEDED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ResponseAttemptStatus = (typeof ResponseAttemptStatus)[keyof typeof ResponseAttemptStatus]
+
+
+export const ResponseErrorCategory = {
+  UNAVAILABLE: 'UNAVAILABLE',
+  TIMED_OUT: 'TIMED_OUT',
+  RATE_LIMITED: 'RATE_LIMITED',
+  CANCELLED: 'CANCELLED',
+  INTERRUPTED: 'INTERRUPTED'
+} as const
+
+export type ResponseErrorCategory = (typeof ResponseErrorCategory)[keyof typeof ResponseErrorCategory]
