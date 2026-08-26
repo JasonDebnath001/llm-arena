@@ -82,7 +82,13 @@ code in `design.md`, `app/globals.css`, `app/design-system/`, `app/arena/`, and 
 Let anyone submit one prompt to as many as three models and watch their responses arrive independently. Require users to sign in only when they vote, then reveal model identities.
 **Done when:** a developer can choose models, submit a prompt, see live response and per-call latency, token, and zero-dollar cost measurements, recover from one model failing, require users to sign in only when they vote, and see identities only after that vote. (basis: completed comparison votes are the primary success metric, and identity masking reduces label-induced evaluation bias)
 
-- [ ] Design it (spec): `/architect blind comparison and voting loop`
+**Decision:** Use a POST route that creates the durable blind comparison before execution, then returns one NDJSON stream carrying independently tagged attempt events. OpenRouter is the first provider adapter because the seeded free-tier catalog already uses its stable model IDs. Anonymous ownership is a 24-hour hashed claim credential in an HTTP-only cookie. Voting is a separate Clerk-authenticated transaction; only its successful response may reveal model identities. Retries append attempts instead of replacing them.
+
+- [x] Decide the prompt, multiplexed stream, retry, claim, vote, and reveal path
+- [x] Build comparison creation, encrypted persistence, and the OpenRouter stream adapter
+- [ ] Connect independent live response states and per-response retry
+- [x] Build authenticated voting, anonymous claiming, and authorized reveal
+- [ ] Verify partial failure, retry, vote integrity, and identity masking
 
 ## Slice 2: Rankings
 

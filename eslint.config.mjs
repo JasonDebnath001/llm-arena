@@ -10,7 +10,11 @@ const eslintConfig = defineConfig([
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     files: ["**/*.{js,jsx,mjs,cjs,ts,tsx}"],
-    ignores: ["infrastructure/env.ts", "infrastructure/public-env.ts"],
+    ignores: [
+      "infrastructure/database-environment.ts",
+      "infrastructure/env.ts",
+      "infrastructure/public-env.ts",
+    ],
     rules: {
       "no-restricted-properties": [
         "error",

@@ -516,12 +516,27 @@ h2 {
   text-align: left;
   cursor: pointer;
 }
+.model-option > input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
 .model-option:hover {
   border-color: var(--color-accent);
 }
-.model-option[aria-pressed="true"] {
+.model-option[data-selected="true"] {
   border-color: var(--color-accent);
   background: color-mix(in srgb, var(--color-accent) 7%, var(--color-surface));
+}
+.model-option:has(input:focus-visible) {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.model-option[data-disabled="true"] {
+  opacity: 0.58;
+  cursor: not-allowed;
 }
 .model-option strong,
 .model-option small {
@@ -541,9 +556,31 @@ h2 {
   color: var(--color-on-accent);
   font-weight: 800;
 }
-.model-option[aria-pressed="true"] .selection-box {
+.model-option[data-selected="true"] .selection-box {
   border-color: var(--color-accent);
   background: var(--color-accent);
+}
+.field-message,
+.form-status {
+  margin: var(--space-3) 0 0;
+  font-size: var(--font-size-sm);
+}
+.field-message {
+  min-height: 1.4em;
+  color: var(--color-muted);
+}
+.form-status {
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+.form-status-error {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+.form-status-success {
+  border-color: var(--color-success);
+  color: var(--color-success);
 }
 .prompt-field {
   display: grid;
