@@ -18,8 +18,10 @@ if (!token) {
     ui_host: "https://us.posthog.com",
     // Include the defaults option as required by PostHog
     defaults: "2026-01-30",
-    // Enables capturing unhandled exceptions via Error Tracking
-    capture_exceptions: true,
+    // Capture unhandled exceptions via Error Tracking in production only.
+    // The dev server reports its own recompile artifacts (for example a
+    // ChunkLoadError on app-pages-internals), which are not app failures.
+    capture_exceptions: publicEnvironment.nodeEnvironment === "production",
     // Turn on debug in development mode
     debug: publicEnvironment.nodeEnvironment === "development",
   });
