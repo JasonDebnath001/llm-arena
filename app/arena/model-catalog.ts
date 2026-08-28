@@ -1,6 +1,7 @@
 import "server-only";
 
 import { ModelAvailability, Prisma } from "../../generated/prisma/client";
+import { getModelCatalogRecords } from "../../infrastructure/database/models";
 import { prisma } from "../../lib/prisma";
 
 const activeVersionWhere = (now: Date) =>
@@ -20,29 +21,14 @@ export type PickerModel = Readonly<{
 export async function listPickerModels(
   now = new Date(),
 ): Promise<PickerModel[]> {
-  const models = await prisma.model.findMany({
-    orderBy: { name: "asc" },
-    select: {
-      availability: true,
-      description: true,
-      id: true,
-      name: true,
-      versions: {
-        where: activeVersionWhere(now),
-        orderBy: { effectiveFrom: "desc" },
-        take: 1,
-        select: { contextWindowTokens: true },
-      },
-    },
-  });
+  const models = await getModelCatalogRecords(now);
 
-  return models.map(({ versions, ...model }) => ({
-    ...model,
-    availability:
-      versions.length === 0
-        ? ModelAvailability.UNAVAILABLE
-        : model.availability,
-    contextWindowTokens: versions[0]?.contextWindowTokens ?? null,
+  return models.map((model) => ({
+    availability: model.availability,
+    contextWindowTokens: model.version?.contextWindowTokens ?? null,
+    description: model.description,
+    id: model.id,
+    name: model.name,
   }));
 }
 

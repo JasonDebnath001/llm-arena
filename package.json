@@ -35,7 +35,8 @@
     "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "prepare": "simple-git-hooks",
     "check": "node scripts/check-portability.mjs",
-    "test": "pnpm check && node scripts/check-data-model.mjs",
+    "test": "pnpm check && node scripts/check-data-model.mjs && pnpm test:model-catalog",
+    "test:model-catalog": "tsx --test features/models/model-catalog.test.ts",
     "test:data-model:database": "node scripts/test-data-model-migration.mjs",
     "tokens": "node scripts/analyze-token-usage.mjs"
   },
