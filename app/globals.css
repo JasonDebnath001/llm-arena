@@ -937,10 +937,19 @@ tbody td {
   color: var(--color-body);
   line-height: 1.6;
 }
+.model-card .model-evidence {
+  margin-top: calc(var(--space-2) * -1);
+  color: var(--color-muted);
+  font: 500 var(--font-size-xs) / 1.5 var(--font-mono);
+}
 .model-card .measurement-row {
   margin: auto 0 var(--space-4);
   padding-top: var(--space-4);
   border-top: 1px solid var(--color-border);
+}
+.availability-guide {
+  margin-top: var(--space-6);
+  scroll-margin-top: var(--space-8);
 }
 .stat-grid {
   display: grid;
@@ -1017,8 +1026,7 @@ tbody td {
   .page {
     padding-inline: var(--space-8);
   }
-  .model-options,
-  .stat-grid {
+  .model-options {
     grid-template-columns: repeat(3, 1fr);
   }
   .model-grid,
@@ -1026,7 +1034,7 @@ tbody td {
     grid-template-columns: repeat(2, 1fr);
   }
   .stat-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   }
   .leaderboard-summary,
   .methodology-list {

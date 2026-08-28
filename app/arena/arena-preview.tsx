@@ -118,14 +118,28 @@ function ResponseCard({
 
 export function ArenaPreview({
   catalogError = false,
+  initialModelIds = [],
   models,
-}: Readonly<{ catalogError?: boolean; models: readonly PickerModel[] }>) {
+}: Readonly<{
+  catalogError?: boolean;
+  initialModelIds?: readonly string[];
+  models: readonly PickerModel[];
+}>) {
   const { isSignedIn } = useUser();
   const [selectedModels, setSelectedModels] = useState<readonly string[]>(
-    models
-      .filter((model) => model.availability === "AVAILABLE")
-      .slice(0, 3)
-      .map((model) => model.id),
+    () => {
+      const selectableModels = models.filter(
+        (model) => model.availability !== "UNAVAILABLE",
+      );
+      const selectableIds = new Set(selectableModels.map((model) => model.id));
+      const requestedIds = [...new Set(initialModelIds)]
+        .filter((modelId) => selectableIds.has(modelId))
+        .slice(0, 3);
+
+      return requestedIds.length > 0
+        ? requestedIds
+        : selectableModels.slice(0, 3).map((model) => model.id);
+    },
   );
   const [selectionMessage, setSelectionMessage] = useState("");
   const [cards, setCards] = useState<readonly CardState[]>([]);
