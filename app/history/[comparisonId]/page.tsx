@@ -44,9 +44,35 @@ export default async function HistoryDetailPage({
 
   const { comparisonId } = await params;
   const comparison = await loadHistoryDetail(userId, comparisonId).catch(
-    () => null,
+    () => undefined,
   );
-  if (!comparison) notFound();
+
+  if (comparison === undefined) {
+    return (
+      <div className="page page-reading">
+        <Link className="back-link" href="/history">
+          <Icon name="arrowLeft" />
+          Back to history
+        </Link>
+        <PageHeader
+          eyebrow="Saved comparison"
+          title="This comparison is temporarily unavailable."
+          description="Your retained comparison is unaffected. Try loading it again."
+        />
+        <EmptyState icon="status" title="Unable to load comparison">
+          <p>The comparison could not be loaded right now.</p>
+          <Link
+            className="button button-primary"
+            href={`/history/${comparisonId}`}
+          >
+            Try again
+          </Link>
+        </EmptyState>
+      </div>
+    );
+  }
+
+  if (comparison === null) notFound();
 
   return (
     <div className="page page-reading">
