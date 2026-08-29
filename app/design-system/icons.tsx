@@ -1,7 +1,9 @@
 import type { SVGProps } from "react";
 
 export type IconName =
+  | "arrowLeft"
   | "arena"
+  | "chevronRight"
   | "history"
   | "leaderboard"
   | "models"
@@ -9,12 +11,15 @@ export type IconName =
   | "status"
   | "timer"
   | "tokens"
+  | "trash"
   | "user";
 
 type IconProps = Readonly<SVGProps<SVGSVGElement> & { name: IconName }>;
 
 const paths: Readonly<Record<IconName, React.ReactNode>> = {
+  arrowLeft: <path d="m15 18-6-6 6-6m-6 6h12" />,
   arena: <path d="M4 18V8m8 10V4m8 14v-7M2 18h20" />,
+  chevronRight: <path d="m9 18 6-6-6-6" />,
   history: <path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5m4-1v5l3 2" />,
   leaderboard: <path d="M5 20v-7h4v7m2 0V4h4v16m2 0v-10h4v10M3 20h20" />,
   models: (
@@ -28,6 +33,7 @@ const paths: Readonly<Record<IconName, React.ReactNode>> = {
   tokens: (
     <path d="M7 7h10v10H7zM3 10V5a2 2 0 0 1 2-2h5m4 18h5a2 2 0 0 0 2-2v-5" />
   ),
+  trash: <path d="M4 7h16m-10 4v6m4-6v6M9 7l1-3h4l1 3m3 0-1 14H7L6 7" />,
   user: <path d="M20 21a8 8 0 0 0-16 0m8-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />,
 };
 
